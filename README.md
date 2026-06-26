@@ -20,7 +20,7 @@ A Docker image based on `arm32v6/alpine` with a Python 3 environment and common 
 Because this image targets `linux/arm/v6`, cross-platform build support must be enabled on your host before building. Run **once**:
 
 ```bash
-make setup
+just setup
 ```
 
 This will:
@@ -30,12 +30,12 @@ This will:
 3. Create (or switch to) a `buildx` builder instance named `multiarch` that supports multi-platform builds
 4. Bootstrap and verify the builder is ready
 
-> **Note:** The `make setup` step requires a privileged container to install the QEMU binary formats. You only need to run it once per machine (or after a Docker restart that clears binfmt registrations).
+> **Note:** The `just setup` step requires a privileged container to install the QEMU binary formats. You only need to run it once per machine (or after a Docker restart that clears binfmt registrations).
 
 ## Building the image
 
 ```bash
-make build
+just build
 ```
 
 This builds the image for `linux/arm/v6` and loads it into your local Docker image store.
@@ -43,12 +43,12 @@ This builds the image for `linux/arm/v6` and loads it into your local Docker ima
 ## Pushing the image
 
 ```bash
-make push
+just push
 ```
 
 This builds and pushes the image directly to Docker Hub as `mapitman/python-arm:latest`. You must be logged in (`docker login`) with push access to that repository.
 
-## Makefile targets
+## justfile targets
 
 | Target  | Description                                              |
 |---------|----------------------------------------------------------|
