@@ -1,3 +1,5 @@
+BUILDX_VERSION := env_var_or_default("BUILDX_VERSION", "")
+
 default: build
 
 setup:
@@ -5,10 +7,10 @@ setup:
 	@if ! docker buildx version > /dev/null 2>&1; then \
 		echo "Installing docker buildx..."; \
 		BUILDX_VERSION=$$(curl -s https://api.github.com/repos/docker/buildx/releases/latest | grep -o '"tag_name": *"[^"]*"' | grep -o 'v[^"]*'); \
-		curl -fsSL "https://github.com/docker/buildx/releases/download/$${BUILDX_VERSION}/buildx-$${BUILDX_VERSION}.linux-amd64" \
+		curl -fsSL "https://github.com/docker/buildx/releases/download/${{BUILDX_VERSION}}/buildx-${{BUILDX_VERSION}}.linux-amd64" \
 			-o ~/.docker/cli-plugins/docker-buildx; \
 		chmod +x ~/.docker/cli-plugins/docker-buildx; \
-		echo "Installed buildx $${BUILDX_VERSION}"; \
+		echo "Installed buildx ${{BUILDX_VERSION}}"; \
 	else \
 		echo "docker buildx already installed: $$(docker buildx version)"; \
 	fi
